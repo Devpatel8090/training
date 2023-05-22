@@ -1,0 +1,12 @@
+C:\Users\pca39\Desktop\RegistrationDemo\RegistrationDemo.Repository\bin\Debug\net6.0\RegistrationDemo.Repository.deps.json
+C:\Users\pca39\Desktop\RegistrationDemo\RegistrationDemo.Repository\bin\Debug\net6.0\RegistrationDemo.Repository.dll
+C:\Users\pca39\Desktop\RegistrationDemo\RegistrationDemo.Repository\bin\Debug\net6.0\ref\RegistrationDemo.Repository.dll
+C:\Users\pca39\Desktop\RegistrationDemo\RegistrationDemo.Repository\bin\Debug\net6.0\RegistrationDemo.Repository.pdb
+C:\Users\pca39\Desktop\RegistrationDemo\RegistrationDemo.Repository\obj\Debug\net6.0\RegistrationDemo.Repository.csproj.AssemblyReference.cache
+C:\Users\pca39\Desktop\RegistrationDemo\RegistrationDemo.Repository\obj\Debug\net6.0\RegistrationDemo.Repository.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pca39\Desktop\RegistrationDemo\RegistrationDemo.Repository\obj\Debug\net6.0\RegistrationDemo.Repository.AssemblyInfoInputs.cache
+C:\Users\pca39\Desktop\RegistrationDemo\RegistrationDemo.Repository\obj\Debug\net6.0\RegistrationDemo.Repository.AssemblyInfo.cs
+C:\Users\pca39\Desktop\RegistrationDemo\RegistrationDemo.Repository\obj\Debug\net6.0\RegistrationDemo.Repository.csproj.CoreCompileInputs.cache
+C:\Users\pca39\Desktop\RegistrationDemo\RegistrationDemo.Repository\obj\Debug\net6.0\RegistrationDemo.Repository.dll
+C:\Users\pca39\Desktop\RegistrationDemo\RegistrationDemo.Repository\obj\Debug\net6.0\ref\RegistrationDemo.Repository.dll
+C:\Users\pca39\Desktop\RegistrationDemo\RegistrationDemo.Repository\obj\Debug\net6.0\RegistrationDemo.Repository.pdb
