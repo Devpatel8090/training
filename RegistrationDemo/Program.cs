@@ -1,7 +1,11 @@
+using RegistrationDemo.Repository.Interface;
+using RegistrationDemo.Repository.Repository;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IUnitOfWorkRepository, UnitOfWorkRepository>();
 
 var app = builder.Build();
 

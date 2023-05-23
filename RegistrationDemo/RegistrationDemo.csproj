@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -15,6 +15,10 @@
   <ItemGroup>
     <ProjectReference Include="..\RegistrationDemo.Entity\RegistrationDemo.Entity.csproj" />
     <ProjectReference Include="..\RegistrationDemo.Repository\RegistrationDemo.Repository.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\Images\" />
   </ItemGroup>
 
 </Project>

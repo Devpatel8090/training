@@ -1,88 +1,163 @@
 ﻿@model RegistrationDemo.Entity.RegisterViewModel
 
 @{
-    ViewData["Title"] = "Register";
+ViewData["Title"] = "Story Listing Page";
+Layout = "~/Views/Shared/_LayoutRegister.cshtml";
 }
 
-<h1>Register</h1>
+<h1 class="text-center mt-5">Register</h1>
 
-<h4>RegisterViewModel</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Register">
+<div class="row align-items-center justify-content-center "  @* style="background-image: url('/Images/IGNOU-Student-Login.jpg');background-repeat: no-repeat;background-size: cover;"*@>
+
+    <div class="col-md-6 ">
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="~/Images/IGNOU-Student-Login.jpg" class="d-block w-100 " alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="~/Images/image_processing20200617-17692-eewvv5.jpg" class="d-block w-100 " alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="~/Images/image_processing20200617-17692-eewvv5.jpg" class="d-block w-100 " alt="...">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+    <div class="col-md-6    ">
+        <form asp-action="Register ">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Surname" class="control-label"></label>
-                <input asp-for="Surname" class="form-control" />
-                <span asp-validation-for="Surname" class="text-danger"></span>
+            <div class="col d-flex flex-row align-items-center  gap-2 mt-2 mb-2">
+                
+                <div class="form-group w-100">
+                    <label asp-for="FirstName" class="control-label"></label>
+                    <input asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                 <div class="form-group w-100">
+                    <label asp-for="MiddleName" class="control-label"></label>
+                    <input asp-for="MiddleName" class="form-control" />
+                    <span asp-validation-for="MiddleName" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
+            <div class="col d-flex flex-row align-items-center  gap-2 mt-2 mb-2">
+               
+                <div class="form-group w-100">
+                    <label asp-for="Surname" class="control-label"></label>
+                    <input asp-for="Surname" class="form-control" />
+                    <span asp-validation-for="Surname" class="text-danger"></span>
+                </div>
+                <div class="form-group w-100">
+                    <label asp-for="PhoneNumber" class="control-label"></label>
+                    <input asp-for="PhoneNumber" class="form-control" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
+            <div class="col d-flex flex-row align-items-center  gap-2 mt-2 mb-2">
+                <div class="form-group w-100">
+                    <label asp-for="DateOfBirth" class="control-label"></label>
+                    <input type="date" asp-for="DateOfBirth" id="BirthdayDate" class="form-control" />
+                    <span id="BirthdayYearText" class="text-success"></span>
+                    @*   <span id="HappyBirthdayText" class="text-success mt-2 p-2 mb-2"></span>*@
+                    <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="DateOfBirth" class="control-label"></label>
-                <input asp-for="DateOfBirth" class="form-control" />
-                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+            <div class="col d-flex flex-row align-items-center  gap-2 mt-2 mb-2">
+                <div class="form-group w-100">
+                    <label asp-for="Gender" class="control-label"></label>
+                    <select asp-for="Gender" class="form-select" aria-label="Default select example">
+                        <option selected>Select Gender Please</option>
+                        <option value="1">Male</option>
+                        <option value="2">Female</option>
+                        <option value="3">Transgender</option>
+                    </select>
+                    <span asp-validation-for="Gender" class="text-danger"></span>
+                </div>
+                <div class="form-group w-100">
+                    <label asp-for="PinCode" class="control-label"></label>
+                    <input asp-for="PinCode" class="form-control" />
+                    <span asp-validation-for="PinCode" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Gender" class="control-label"></label>
-                <input asp-for="Gender" class="form-control" />
-                <span asp-validation-for="Gender" class="text-danger"></span>
+            <div class="col d-flex flex-row align-items-center  gap-2 mt-2 mb-2">
+                <div class="form-group w-100">
+                    <label asp-for="Email" class="control-label"></label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group w-100">
+                    <label asp-for="CountryId" class="control-label">Country</label>
+                    <select class="form-select" asp-for="CountryId" aria-label="Default select example">
+                        <option selected>Open this select menu</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                    <span asp-validation-for="CountryId" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="PinCode" class="control-label"></label>
-                <input asp-for="PinCode" class="form-control" />
-                <span asp-validation-for="PinCode" class="text-danger"></span>
+            <div class="col d-flex flex-row align-items-center  gap-2 mt-2 mb-2">
+                <div class="form-group w-100">
+                    <label asp-for="StateId" class="control-label">State</label>
+                    <select asp-for="StateId" class="form-select" aria-label="Default select example">
+                        <option selected>Open this select menu</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                    <span asp-validation-for="StateId" class="text-danger"></span>
+                </div>
+                <div class="form-group w-100">
+                    <label asp-for="CityId" class="control-label">City</label>
+                    <select asp-for="CityId" class="form-select" aria-label="Default select example">
+                        <option selected>Open this select menu</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                    <span asp-validation-for="CityId" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+            <div class="col d-flex flex-row align-items-center gap-2 mt-2 mb-2">
+                <div class="form-group w-100">
+                    <label asp-for="Password" class="control-label"></label>
+                    <input asp-for="Password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group w-100">
+                    <label asp-for="ConfirmPassword" class="control-label"></label>
+                    <input asp-for="ConfirmPassword" class="form-control" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="CountryId" class="control-label"></label>
-                <input asp-for="CountryId" class="form-control" />
-                <span asp-validation-for="CountryId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="StateId" class="control-label"></label>
-                <input asp-for="StateId" class="form-control" />
-                <span asp-validation-for="StateId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CityId" class="control-label"></label>
-                <input asp-for="CityId" class="form-control" />
-                <span asp-validation-for="CityId" class="text-danger"></span>
-            </div>           
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PhoneNumber" class="control-label"></label>
-                <input asp-for="PhoneNumber" class="form-control" />
-                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+            <div class="form-group w-100 mt-2 text-center">
+                <input type="submit" value="Register" class="btn" style="background-color:#C4DFDF" />
             </div>
         </form>
     </div>
 </div>
 
-<div>
+@*<div>
     <a asp-action="Index">Back to List</a>
-</div>
+    </div>
+*@
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+@*@section Scripts {
+    @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
 }
+}*@

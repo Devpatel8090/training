@@ -10,3 +10,6 @@ C:\Users\pca39\Desktop\RegistrationDemo\RegistrationDemo.Repository\obj\Debug\ne
 C:\Users\pca39\Desktop\RegistrationDemo\RegistrationDemo.Repository\obj\Debug\net6.0\RegistrationDemo.Repository.dll
 C:\Users\pca39\Desktop\RegistrationDemo\RegistrationDemo.Repository\obj\Debug\net6.0\ref\RegistrationDemo.Repository.dll
 C:\Users\pca39\Desktop\RegistrationDemo\RegistrationDemo.Repository\obj\Debug\net6.0\RegistrationDemo.Repository.pdb
+C:\Users\pca39\Desktop\RegistrationDemo\RegistrationDemo.Repository\bin\Debug\net6.0\RegistrationDemo.Entity.dll
+C:\Users\pca39\Desktop\RegistrationDemo\RegistrationDemo.Repository\bin\Debug\net6.0\RegistrationDemo.Entity.pdb
+C:\Users\pca39\Desktop\RegistrationDemo\RegistrationDemo.Repository\obj\Debug\net6.0\RegistrationDemo.Repository.csproj.CopyComplete
