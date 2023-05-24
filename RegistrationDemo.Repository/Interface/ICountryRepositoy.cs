@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RegistrationDemo.Entity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,6 @@ namespace RegistrationDemo.Repository.Interface
 {
     public interface ICountryRepositoy
     {
+        public IEnumerable<Country> GetAllCountries();
     }
 }

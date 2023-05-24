@@ -19,13 +19,13 @@ Layout = "~/Views/Shared/_LayoutRegister.cshtml";
             </div>
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="~/Images/IGNOU-Student-Login.jpg" class="d-block w-100 " alt="...">
+                    <img src="~/Images/ebb4f34088bf5e1ddb6abf56bfb30471b4921483.jpg" class="d-block w-100 " alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="~/Images/image_processing20200617-17692-eewvv5.jpg" class="d-block w-100 " alt="...">
+                    <img src="~/Images/2019-10-15-campus-update.jpg" class="d-block w-100 " alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="~/Images/image_processing20200617-17692-eewvv5.jpg" class="d-block w-100 " alt="...">
+                    <img src="~/Images/top-employer-n-n-no-logo.jpeg" class="d-block w-100 " alt="...">
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -39,7 +39,7 @@ Layout = "~/Views/Shared/_LayoutRegister.cshtml";
         </div>
     </div>
     <div class="col-md-6    ">
-        <form asp-action="Register ">
+        <form asp-action="Register">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="col d-flex flex-row align-items-center  gap-2 mt-2 mb-2">
                 
@@ -70,8 +70,10 @@ Layout = "~/Views/Shared/_LayoutRegister.cshtml";
             <div class="col d-flex flex-row align-items-center  gap-2 mt-2 mb-2">
                 <div class="form-group w-100">
                     <label asp-for="DateOfBirth" class="control-label"></label>
-                    <input type="date" asp-for="DateOfBirth" id="BirthdayDate" class="form-control" />
+                    
+                    <input type="date" max="@Model.DateOfBirth.ToString("yyyy-MM-dd")" asp-for="DateOfBirth" id="BirthdayDate" class="form-control" />
                     <span id="BirthdayYearText" class="text-success"></span>
+                    <span id="HappyBirthdayText" class="text-success"></span>
                     @*   <span id="HappyBirthdayText" class="text-success mt-2 p-2 mb-2"></span>*@
                     <span asp-validation-for="DateOfBirth" class="text-danger"></span>
                 </div>
@@ -83,13 +85,13 @@ Layout = "~/Views/Shared/_LayoutRegister.cshtml";
                         <option selected>Select Gender Please</option>
                         <option value="1">Male</option>
                         <option value="2">Female</option>
-                        <option value="3">Transgender</option>
+                        <option value="3">Trans-gender</option>
                     </select>
                     <span asp-validation-for="Gender" class="text-danger"></span>
                 </div>
                 <div class="form-group w-100">
                     <label asp-for="PinCode" class="control-label"></label>
-                    <input asp-for="PinCode" class="form-control" />
+                    <input type="text" asp-for="PinCode" class="form-control" />
                     <span asp-validation-for="PinCode" class="text-danger"></span>
                 </div>
             </div>
@@ -101,33 +103,47 @@ Layout = "~/Views/Shared/_LayoutRegister.cshtml";
                 </div>
                 <div class="form-group w-100">
                     <label asp-for="CountryId" class="control-label">Country</label>
-                    <select class="form-select" asp-for="CountryId" aria-label="Default select example">
-                        <option selected>Open this select menu</option>
-                        <option value="1">One</option>
+                    <select class="form-select" asp-for="CountryId" id="CountryId" onchange="GetStatesByCountryId()">
+                        <option value="-1" selected>Please Select the Country</option>
+                        @foreach (var item in @Model.Countries)
+                        {
+                           <option value="@item.CountryId">@item.CountryName</option> 
+                        }
+                        @*
                         <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        <option value="3">Three</option>*@
                     </select>
+                   @* <asp:Label ID="Label1" runat="server" Text="Choose Your Country :"></asp:Label>  
+                    <asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="True"   
+                    DataTextField="country_name" DataValueField="country_id" AppendDataBoundItems="true"   
+                    onselectedindexchanged="DropDownList1_SelectedIndexChanged">  
+                    <asp:ListItem Value="1">--Select Country--</asp:ListItem>  
+                    <asp:ListItem Value="2">--Select Country--</asp:ListItem>  
+                    <asp:ListItem Value="3">--Select Country--</asp:ListItem>  
+                    <asp:ListItem Value="4">--Select Country--</asp:ListItem>  
+                </asp:DropDownList>*@
                     <span asp-validation-for="CountryId" class="text-danger"></span>
                 </div>
             </div>
             <div class="col d-flex flex-row align-items-center  gap-2 mt-2 mb-2">
                 <div class="form-group w-100">
                     <label asp-for="StateId" class="control-label">State</label>
-                    <select asp-for="StateId" class="form-select" aria-label="Default select example">
-                        <option selected>Open this select menu</option>
-                        <option value="1">One</option>
+                    <select asp-for="StateId" id="StateId" class="form-select" oninput="GetCitiesByStateId()">
+                        <option selected value="-1">Please Select State</option>
+                        
+                        @*<option value="1">One</option>
                         <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        <option value="3">Three</option>*@
                     </select>
                     <span asp-validation-for="StateId" class="text-danger"></span>
                 </div>
                 <div class="form-group w-100">
                     <label asp-for="CityId" class="control-label">City</label>
-                    <select asp-for="CityId" class="form-select" aria-label="Default select example">
-                        <option selected>Open this select menu</option>
-                        <option value="1">One</option>
+                    <select asp-for="CityId" class="form-select" id="CityId" >
+                        <option selected value="-1">Please Select the City</option>
+                       @* <option value="1">One</option>
                         <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        <option value="3">Three</option>*@
                     </select>
                     <span asp-validation-for="CityId" class="text-danger"></span>
                 </div>

@@ -10,5 +10,9 @@ namespace RegistrationDemo.Repository.Interface
     {
         public ICountryRepositoy Country { get; }
         public IStudentDetailsRepository StudentDetails { get; }
+
+        public IStateRepository State { get; }
+
+        public ICityRepository City { get; }
     }
 }

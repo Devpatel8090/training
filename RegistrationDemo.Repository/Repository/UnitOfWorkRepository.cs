@@ -15,10 +15,18 @@ namespace RegistrationDemo.Repository.Repository
         {  
             _configuration = configuration;
             StudentDetails =  new StudentDetailsRepository(configuration); 
-            Country = new CountryRepository();
+            Country = new CountryRepository(configuration);
+            State = new StateRepository(configuration);
+            City = new CityRepository(configuration);
         }
         public ICountryRepositoy Country { get; private set; }
         public IStudentDetailsRepository StudentDetails { get; private set; }
+
+        public IStateRepository State { get; private set; }
+
+        public ICityRepository City { get; private set; }
+
+
 
     }
 }

@@ -28,8 +28,6 @@ namespace RegistrationDemo.Repository.Repository
                 connection.Open();
                 try
                 {
-                    
-
                     SqlCommand command = new SqlCommand("AddStudent", connection);
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("Surname", register.Surname);
