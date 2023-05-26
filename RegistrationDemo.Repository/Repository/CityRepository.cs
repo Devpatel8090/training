@@ -41,6 +41,7 @@ namespace RegistrationDemo.Repository.Repository
                         city = new City();
                         city.CityId = int.Parse(reader["CityId"].ToString());
                         city.CityName = reader["CityName"].ToString();
+                        /*city.CityName = Convert.ToString(reader["CityName"]);*/
                         CityList.Add(city);
                     }
 

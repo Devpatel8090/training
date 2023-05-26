@@ -20,10 +20,10 @@ namespace RegistrationDemo.Controllers
         public IActionResult Register()
         {
             var today = DateTime.Now;
-            var minyear = today.Year - 7;
-            var minmonth = today.Month;
-            var minday = today.Day;
-            System.DateTime maxdate = new System.DateTime(minyear,minmonth,minday);
+            var minYear = today.Year - 7;
+            var minMonth = today.Month;
+            var minDay = today.Day;
+            System.DateTime maxdate = new System.DateTime(minYear, minMonth, minDay);
            
             var registrationModel = new RegisterViewModel
             {
