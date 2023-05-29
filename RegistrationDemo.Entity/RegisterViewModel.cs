@@ -12,11 +12,11 @@ namespace RegistrationDemo.Entity
     {
         [Required(ErrorMessage = "Surname is Required"),
         StringLength(15, MinimumLength = 3,ErrorMessage = "Surname should be minimum 3 and maximum 10 alphabets"),
-        RegularExpression(@"(\S\D)+", ErrorMessage = " Space and numbers not allowed")]
+      /*  RegularExpression(@"(\S\D)+", ErrorMessage = " Space and numbers not allowed")]*/]
         public string Surname { get; set; }
 
         [Required(ErrorMessage = "FirstName is Required"),
-         RegularExpression(@"(\S\D)+", ErrorMessage = " Space and numbers not allowed")]
+        /* RegularExpression(@"(\S\D)+", ErrorMessage = " Space and numbers not allowed")]*/]
         public string FirstName { get; set; }
 
         public string MiddleName { get; set; }

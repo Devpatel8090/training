@@ -28,11 +28,11 @@ namespace RegistrationDemo.Repository.Repository
                 connection.Open();
                 try
                 {
-                    SqlCommand command = new SqlCommand("AddStudent", connection);
+                    SqlCommand command = new SqlCommand("sp_StudentDetails_AddStudent", connection);
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("Surname", register.Surname);
                     command.Parameters.AddWithValue("FirstName", register.FirstName);
-                    command.Parameters.AddWithValue("LastName", register.MiddleName);
+                    command.Parameters.AddWithValue("MiddleName", register.MiddleName);
                     command.Parameters.AddWithValue("DateOfBirth", register.DateOfBirth);
                     command.Parameters.AddWithValue("Gender", register.Gender);
                     command.Parameters.AddWithValue("CountryId", register.CountryId);
