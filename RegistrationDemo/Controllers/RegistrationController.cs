@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RegistrationDemo.Entity;
 using RegistrationDemo.Repository.Interface;
+using RegistrationDemo.Utility;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -16,6 +17,9 @@ namespace RegistrationDemo.Controllers
             _configuration = configuration; 
             _unitOfWork = unitOfWork;
         }
+
+        #region GetMethods
+       
         [HttpGet]
         public IActionResult Register()
         {
@@ -34,6 +38,14 @@ namespace RegistrationDemo.Controllers
             return View(registrationModel);
         }
 
+
+
+
+        #endregion
+
+
+
+        #region PostMethods
         [HttpPost]
         public IActionResult Register(RegisterViewModel register)
         {
@@ -42,6 +54,9 @@ namespace RegistrationDemo.Controllers
             var connection2 = _configuration.GetValue<string>("ConnectionStrings:DBconnect");*/
             if (ModelState.IsValid)
             {
+                var utility = new Utilities();
+                var encrypedPassword = utility.Encodepass(register.Password);
+                register.Password = encrypedPassword;
                 var rowsAffected = _unitOfWork.StudentDetails.RegisterUser(register);
                 if(rowsAffected > 0)
                 {
@@ -64,6 +79,11 @@ namespace RegistrationDemo.Controllers
            
         }
 
+        #endregion
+
+
+        #region MethodsForAjaxCall
+
         public JsonResult GetStateDetailsByCountry(long countryId)
         {
             //var city = _cities.CityByCountry(CountryId);
@@ -80,4 +100,5 @@ namespace RegistrationDemo.Controllers
         }
 
     }
+    #endregion
 }

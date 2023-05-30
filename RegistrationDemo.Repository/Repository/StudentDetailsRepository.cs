@@ -40,6 +40,7 @@ namespace RegistrationDemo.Repository.Repository
                     command.Parameters.AddWithValue("CityId", register.CityId);
                     command.Parameters.AddWithValue("PinCode", register.PinCode);
                     command.Parameters.AddWithValue("EmailId", register.Email);
+     
                     command.Parameters.AddWithValue("Password", register.Password);
                     command.Parameters.AddWithValue("ContactNo", register.PhoneNumber);
                     var data = command.ExecuteNonQuery();
