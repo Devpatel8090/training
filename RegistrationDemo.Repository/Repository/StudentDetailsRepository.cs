@@ -30,7 +30,7 @@ namespace RegistrationDemo.Repository.Repository
                 {
                     SqlCommand command = new SqlCommand("sp_StudentDetails_AddStudent", connection);
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("Surname", register.Surname);
+                    /*command.Parameters.AddWithValue("Surname", register.Surname);*/
                     command.Parameters.AddWithValue("FirstName", register.FirstName);
                     command.Parameters.AddWithValue("MiddleName", register.MiddleName);
                     command.Parameters.AddWithValue("DateOfBirth", register.DateOfBirth);
@@ -40,9 +40,15 @@ namespace RegistrationDemo.Repository.Repository
                     command.Parameters.AddWithValue("CityId", register.CityId);
                     command.Parameters.AddWithValue("PinCode", register.PinCode);
                     command.Parameters.AddWithValue("EmailId", register.Email);
-     
                     command.Parameters.AddWithValue("Password", register.Password);
                     command.Parameters.AddWithValue("ContactNo", register.PhoneNumber);
+                    SqlParameter surname = new SqlParameter { 
+                        ParameterName = "Surname",
+                        Value = register.Surname,
+                        Direction = ParameterDirection.Input,
+                    };
+                    command.Parameters.Add(surname);
+                        
                     var data = command.ExecuteNonQuery();
                     return data;
                 }
