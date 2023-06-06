@@ -129,7 +129,7 @@ Layout = "~/Views/Shared/_LayoutRegister.cshtml";
                 <div class="form-group w-100">
                     <label asp-for="StateId" class="control-label">State</label>
                     <select asp-for="StateId" id="StateId" class="form-select" oninput="GetCitiesByStateId()">
-                        <option selected value="-1">Please Select State</option>
+                        <option  value="-1">Please Select State</option>
                         <option disabled>Please select the Country First</option>
                         
                         @*<option value="1">One</option>
@@ -141,7 +141,7 @@ Layout = "~/Views/Shared/_LayoutRegister.cshtml";
                 <div class="form-group w-100">
                     <label asp-for="CityId" class="control-label">City</label>
                     <select asp-for="CityId" class="form-select" id="CityId" >
-                        <option selected value="-1">Please Select the City</option>
+                        <option  value="-1">Please Select the City</option>
                         <option disabled>Please select the State First</option>
                        @* <option value="1">One</option>
                         <option value="2">Two</option>

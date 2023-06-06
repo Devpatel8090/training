@@ -23,6 +23,7 @@ namespace RegistrationDemo.Controllers
         [HttpGet]
         public IActionResult Register()
         {
+            
             var today = DateTime.Now;
             var minYear = today.Year - 7;
             var minMonth = today.Month;
@@ -34,6 +35,23 @@ namespace RegistrationDemo.Controllers
                Countries = _unitOfWork.Country.GetAllCountries(),
                DateOfBirth = maxdate,
                PinCode = 382220
+            };
+            return View(registrationModel);
+        }
+
+        public IActionResult Registration2()
+        {
+            var today = DateTime.Now;
+            var minYear = today.Year - 7;
+            var minMonth = today.Month;
+            var minDay = today.Day;
+            System.DateTime maxdate = new System.DateTime(minYear, minMonth, minDay);
+
+            var registrationModel = new RegisterViewModel
+            {
+                Countries = _unitOfWork.Country.GetAllCountries(),
+                DateOfBirth = maxdate,
+                PinCode = 000000
             };
             return View(registrationModel);
         }

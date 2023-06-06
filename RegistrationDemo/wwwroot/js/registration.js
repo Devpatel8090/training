@@ -15,7 +15,10 @@
         age--;
     }
 
-    if (today.getMonth == birthDate.getMonth && today.getDate() == birthDate.getDate()) {
+    /*console.log(today.getMonth() + 1);
+    console.log(birthDate.getMonth() + 1);*/
+
+    if(today.getMonth() == birthDate.getMonth() && today.getDate() == birthDate.getDate()) {
         $('#HappyBirthdayText').text(" Happy Birthday to you! Many Many Happy Returns of the day!");
     }
     else
