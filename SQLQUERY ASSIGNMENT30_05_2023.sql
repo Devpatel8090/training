@@ -34,11 +34,11 @@ USE TUTORIALS;
 		WHERE E.[Address] = '';
 
 --List User with of 5 different departments
-
-	SELECT DISTINCT D.DepartmentName,E.EmployeeId,E.Address
-	FROM Employee E
-	INNER JOIN Department D 
-	ON E.DepartmentID = D.DepartmentID
+	SELECT *
+	FROM 
+	(SELECT  ROW_NUMBER() OVER (PARTITION BY E.DepartmentID ORDER BY E.EmployeeId ) AS RowIndex,E.*
+	FROM Employee E) AS SubQuery
+	WHERE SubQuery.RowIndex = 1
 	
 	
 --List All Male Users
@@ -66,25 +66,55 @@ USE TUTORIALS;
 
 --List All Users with state,country,department,address Of 5 different department
 	
-	SELECT DISTINCT E.DepartmentID,E.Gender
+	--SELECT DISTINCT E.DepartmentID,E.Gender
+	--FROM Employee E
+	--WHERE E.DepartmentID IN (SELECT DISTINCT TOP 5 DepartmentID
+	--FROM Department)
+
+
+	SELECT *
+	FROM (
+	SELECT ROW_NUMBER() OVER (PARTITION BY E.DepartmentID ORDER BY E.EmployeeId) AS RowIndex, E.*,CO.CountryName,S.*,C.CityName
 	FROM Employee E
-	WHERE E.DepartmentID IN (SELECT DISTINCT TOP 5 DepartmentID
-	FROM Department)
+	INNER JOIN City C ON  E.CityID = C.CityId 
+	INNER JOIN State S ON C.StateId = S.StateId
+	INNER JOIN Country CO ON S.CountryId = CO.CountryId	) AS SubQuery
+	WHERE SubQuery.RowIndex = 1
+
 
 --List All Users with state,country,department,address Of 5 different States
 	
-	SELECT DISTINCT S.StateId,S.CountryId
+
+	--SELECT DISTINCT S.StateId,S.CountryId
+	--FROM Employee E
+	--INNER JOIN City C ON E.CityID = C.CityId
+	--INNER JOIN State S ON C.StateId = S.StateId
+	--INNER JOIN Country CO ON S.CountryId = CO.CountryId
+	--WHERE S.StateId  IN (SELECT  TOP 5 StateId
+	--						FROM State) 
+
+	SELECT *
+	FROM (
+	SELECT ROW_NUMBER() OVER (PARTITION BY S.StateId ORDER BY E.EmployeeId) AS RowIndex, E.*,CO.CountryName,S.*,C.CityName
 	FROM Employee E
-	INNER JOIN City C ON E.CityID = C.CityId
+	INNER JOIN City C ON  E.CityID = C.CityId 
 	INNER JOIN State S ON C.StateId = S.StateId
-	INNER JOIN Country CO ON S.CountryId = CO.CountryId
-	WHERE S.StateId  IN (SELECT  TOP 5 StateId
-							FROM State) 
+	INNER JOIN Country CO ON S.CountryId = CO.CountryId	) AS SubQuery
+	WHERE SubQuery.RowIndex = 1
 
 							
 
 
 --List All Users with state,country,department,address Of 5 different City
+
+	SELECT *
+	FROM (
+		select ROW_NUMBER() OVER(PARTITION BY C.CityId ORDER BY E.EmployeeId) as rownum,E.*,CO.CountryName,S.*,C.CityName
+		from  Employee E
+		INNER JOIN City C ON E.CityID = C.CityId
+		INNER JOIN State S ON C.StateId = S.StateId
+		INNER JOIN Country CO ON S.CountryId = CO.CountryId ) AS Subquery
+		where Subquery.rownum = 1
 
 
 --List Users with all fields who is born aftre year 2000

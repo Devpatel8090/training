@@ -52,7 +52,7 @@ INSERT INTO tblEmployeeSalary(EmployeeId,Salary,Month,Year)
 INSERT INTO tblEmployeeSalary(EmployeeId,Salary,Month,Year)
 	VALUES ('EMP004','600000','6','2023');
 INSERT INTO tblEmployeeSalary(EmployeeId,Salary,Month,Year)
-	VALUES ('EMP003','800000','6','2023');
+	VALUES ('EMP003','800000','7','2023');
 INSERT INTO tblEmployeeSalary(EmployeeId,Salary,Month,Year)
 	VALUES ('EMP002','200000','6','2023');
 INSERT INTO tblEmployeeSalary(EmployeeId,Salary,Month,Year)
@@ -72,19 +72,19 @@ FROM tblEmployeeSalary
 
 ALTER PROCEDURE u_tblEmployeeGetByPagination
 
-@IpageNo bigint,
-@IpageSize bigint
+@pageNo bigint,
+@pageSize bigint
 AS
 BEGIN
 select *
 FROM tblEmployee
 ORDER BY (SELECT NULL)
-OFFSET ((@IpageNo-1)*@IpageSize) ROWS FETCH NEXT @IpageSize ROWS ONLY
+OFFSET ((@pageNo-1)*@pageSize) ROWS FETCH NEXT @pageSize ROWS ONLY
 END
-GO;
 
 
-EXECUTE u_tblEmployeeGetByPagination 3,2
+
+EXECUTE u_tblEmployeeGetByPagination 3,5
 
 
 
@@ -109,7 +109,7 @@ BEGIN
 END
 
 
-EXECUTE u_tblEmployeeInsert 'EMP013','Vedant','Chavda','Mahesh','20010723',1
+EXECUTE u_tblEmployeeInsert 'EMP014','Vedant','Chavda','Mahesh','20010723',1
 
 
 ----------------------------------------------		 STORED PROCEDURE FOR UPDATE		------------------------------------------------------------------------
@@ -144,13 +144,13 @@ EXECUTE u_tblEmployeeUpdate 'EMP011','Praful','Patel','Dharmendra','20011209',1
 -------------------------------------------			STORED PROCEDURE to get employee by id				--------------------------------------------------------------
 
 
-CREATE PROCEDURE u_tblEmployeeGetById
+ALTER PROCEDURE u_tblEmployeeGetById
 
 @EmpId nvarchar(50)
 
 AS
 BEGIN
-	SELECT *
+	SELECT TE.EmpId,TE.FirstName + N' ' + TE.MiddleName + N' ' + TE.LastName AS EmployeeName,TE.DateOfBirth,TE.DepartmentId
 	FROM tblEmployee TE
 	WHERE TE.EmpId = @EmpId
 END
@@ -186,22 +186,27 @@ EXECUTE u_tblEmployeeSalaryGetByMonth 6
 
 -----------------------------------------			Create SP Top 10 Salary Paid Employees		---------------------------------------------
 
-CREATE PROCEDURE u_tblEmployeeGetTopPaidEmployee
+ALTER PROCEDURE u_tblEmployeeGetTopPaidEmployee
 
 AS
 
 BEGIN
 
-	SELECT TOP 10 * 
+	SELECT TOP 10 SubQuery.EmpId,SubQuery.FirstName,SubQuery.LastName,SubQuery.DateOfBirth,SubQuery.Month,SubQuery.Year,SubQuery.Salary
+	FROM
+	(SELECT ROW_NUMBER() OVER(PARTITION BY E.EmpId ORDER BY TS.Salary DESC) AS ROWNUM,E.*,TS.Salary,TS.Month,TS.Year,TS.EmployeeId
 	FROM tblEmployee E
-	INNER JOIN tblEmployeeSalary TS 
-	ON E.EmpId = TS.EmployeeId
-	ORDER BY (TS.Salary) DESC
+	INNER JOIN tblEmployeeSalary TS
+	ON E.EmpId = TS.EmployeeId) AS SubQuery
+	WHERE SubQuery.ROWNUM = 1
+	ORDER BY SubQuery.Salary DESC
 END
-
 
 EXECUTE u_tblEmployeeGetTopPaidEmployee
 
+
+
+------------------------------------------------			index	 ----------------------------------------------------------------
 
 
 CREATE INDEX NDX_SearchByDateOrYear
@@ -221,8 +226,7 @@ BEGIN
 	 UPDATE tblEmployee
 	 SET UpdatedAt =  GETDATE()
 	 where EmpId IN (SELECT EmpId FROM inserted) 
-	SELECT * FROM deleted
-	SELECT * FROM inserted
+	
 END
 
 
@@ -236,11 +240,78 @@ BEGIN
 	 UPDATE tblEmployee
 	 SET CreatedAt =  GETDATE()
 	 where EmpId IN (SELECT EmpId FROM inserted) 
-	SELECT * FROM deleted
-	SELECT * FROM inserted
+	
 END
 
 
---Alter table tblEmployee
---Add foreign key(DepartmentId) references tblDepartment(DepartmentId)
+--			-------------------------------------------------------------  Create a Function to find Age (scalar function)	----------------------------
+
+
+	CREATE FUNCTION dbo.fn_GetAgeOfPerson (@DOB DATE)
+	RETURNS INT 
+	AS 
+	BEGIN 
+
+	DECLARE @AGE INT
+	SET @AGE = DATEDIFF(YEAR,@DOB,GETDATE()) -
+				CASE 
+					WHEN ( MONTH( @DOB ) > MONTH( GETDATE() )
+					 OR ( MONTH( @DOB ) = MONTH( GETDATE() ) AND DAY( @DOB ) > DAY( GETDATE() ) ) )
+					THEN 1
+					ELSE 0
+				END
+				
+		 RETURN @AGE
+	END 
+
+	SELECT dbo.fn_GetAgeOfPerson(TE.DateOfBirth) AS AGE ,TE.FirstName,TE.LastName,TE.DateOfBirth
+	FROM tblEmployee TE
+		
+
+
+--		------------------------------------------		 Create a View		 &&		Find Rank (Result)			---------------------------------------------------
+
+
+
+	ALTER VIEW dbo.TopTenEmployee
+
+	AS
+
+	SELECT TOP 10 SubQuery.EmpId,SubQuery.FirstName,SubQuery.LastName,SubQuery.DateOfBirth,SubQuery.Month,SubQuery.Year,SubQuery.Salary
+	FROM
+	(SELECT RANK() OVER(PARTITION BY E.EmpId ORDER BY TS.Salary DESC) RANK ,ROW_NUMBER() OVER(PARTITION BY E.EmpId ORDER BY TS.Salary DESC) AS RowIndex,E.*,TS.Salary,TS.Month,TS.Year
+	FROM tblEmployee E
+	INNER JOIN tblEmployeeSalary TS
+	ON E.EmpId = TS.EmployeeId) AS SubQuery
+	WHERE SubQuery.RANK = 1 AND SubQuery.RowIndex = 1
+	ORDER BY SubQuery.Salary DESC
+
+
+
+	SELECT *
+	FROM dbo.TopTenEmployee 
+	
+
+
+
+	--				-----------------------------------			 FK  Cascade			------------------
+
+
+		Alter table tblEmployee
+		Add foreign key(DepartmentId) references tblDepartment(DepartmentId) ON DELETE CASCADE
+
+		Alter table tblEmployeeSalary
+		Add foreign key(EmployeeId) references tblEmployee(EmpId) ON DELETE CASCADE
+
+		SELECT * FROM tblDepartment
+
+		SELECT * FROM tblEmployee
+
+		
+		DELETE FROM tblDepartment
+		WHERE tblDepartment.DepartmentId = 5
+	
+
+
+
 
