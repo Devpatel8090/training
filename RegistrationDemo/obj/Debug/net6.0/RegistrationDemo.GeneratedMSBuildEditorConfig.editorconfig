@@ -23,16 +23,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/pca39/Desktop/RegistrationDemo/RegistrationDemo/Views/InventoryAdmin/Income.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50b3J5QWRtaW5cSW5jb21lLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/pca39/Desktop/RegistrationDemo/RegistrationDemo/Views/InventoryAdmin/Payee.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW52ZW50b3J5QWRtaW5cUGF5ZWUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/pca39/Desktop/RegistrationDemo/RegistrationDemo/Views/Registration/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVnaXN0cmF0aW9uXFJlZ2lzdGVyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/pca39/Desktop/RegistrationDemo/RegistrationDemo/Views/Registration/Registration2.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVnaXN0cmF0aW9uXFJlZ2lzdHJhdGlvbjIuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/pca39/Desktop/RegistrationDemo/RegistrationDemo/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/pca39/Desktop/RegistrationDemo/RegistrationDemo/Views/Shared/_INVManagementLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9JTlZNYW5hZ2VtZW50TGF5b3V0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/pca39/Desktop/RegistrationDemo/RegistrationDemo/Views/Shared/_LayoutRegister.cshtml]

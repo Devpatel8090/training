@@ -18,6 +18,7 @@ namespace RegistrationDemo.Repository.Repository
             Country = new CountryRepository(configuration);
             State = new StateRepository(configuration);
             City = new CityRepository(configuration);
+            Category = new CategoryRepository(configuration);
         }
         public ICountryRepositoy Country { get; private set; }
         public IStudentDetailsRepository StudentDetails { get; private set; }
@@ -25,6 +26,8 @@ namespace RegistrationDemo.Repository.Repository
         public IStateRepository State { get; private set; }
 
         public ICityRepository City { get; private set; }
+
+        public ICategoryRepository Category { get; private set; }
 
 
 

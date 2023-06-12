@@ -14,5 +14,7 @@ namespace RegistrationDemo.Repository.Interface
         public IStateRepository State { get; }
 
         public ICityRepository City { get; }
+
+        public ICategoryRepository Category { get; }
     }
 }

@@ -247,16 +247,21 @@ END
 --			-------------------------------------------------------------  Create a Function to find Age (scalar function)	----------------------------
 
 
-	CREATE FUNCTION dbo.fn_GetAgeOfPerson (@DOB DATE)
+	ALTER FUNCTION dbo.fn_GetAgeOfPerson (@DOB DATE)
 	RETURNS INT 
 	AS 
 	BEGIN 
-
+	DECLARE @IbirthMonth AS INT	=  DATEPART(month, @DOB)
+	DECLARE @IcurrentMonth AS INT = DATEPART(MONTH, GETDATE())
+	DECLARE @IbirthDay AS INT 
+	SET @IbirthDay = DATEPART(DAY, @DOB)
+	DECLARE @IcurrentDay AS INT = DATEPART(DAY, GETDATE())
 	DECLARE @AGE INT
+
 	SET @AGE = DATEDIFF(YEAR,@DOB,GETDATE()) -
 				CASE 
-					WHEN ( MONTH( @DOB ) > MONTH( GETDATE() )
-					 OR ( MONTH( @DOB ) = MONTH( GETDATE() ) AND DAY( @DOB ) > DAY( GETDATE() ) ) )
+					WHEN (( @IbirthMonth > @IcurrentMonth )
+					 OR (( @IbirthMonth = @IcurrentMonth) AND (@IbirthDay > @IcurrentDay) ) )
 					THEN 1
 					ELSE 0
 				END

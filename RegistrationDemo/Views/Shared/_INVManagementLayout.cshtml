@@ -1,0 +1,156 @@
+﻿﻿@using System.Globalization
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InventoryManagement</title>
+    
+     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />   
+    
+     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote-lite.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" />
+      <link rel ="stylesheet" href="~/css/InventoryIncome.css" />
+@*    <link rel="stylesheet" href="~/DataTable/css/jquery.dataTables.min.css" >
+    <link rel="stylesheet" href="~/DataTable/css/responsive.dataTables.min.css" >*@
+     
+     <style>
+           /* .nav-pills .nav-link.active, .nav-pills .show>.nav-link{ 
+                background-color: #FFFFFF ; 
+                color: #F88634;
+                
+                
+            }
+            .dataTables_filter{
+                margin-bottom:12px;
+            }
+            .nav-pills .nav-link{
+                color:white;
+            }
+            .orange__color {
+                color:#F88634;
+                background-color: #F88634;
+                border-color:#F88634;
+            }
+
+            .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+                background-color: #FFFFFF;
+                color: #F88634;
+                width:50px;
+                
+            }*/
+
+           /* .paginate_button{
+               color:#F88634;
+                background-color: #F88634;
+                border-color:#F88634;
+            }
+             .current{
+               color:#F88634;
+                background-color: #F88634;
+                border-color:#F88634;
+            }*/
+    </style>
+</head>
+<body class="container-fluid">
+    <partial name="_Notification" />
+    <div class="d-flex align-items-start row">
+        
+        <div class="TabBackground col-2 nav flex-column nav-pills min-vh-100 position-sticky top-0" id="AllAdminTabsList" role="tablist" aria-orientation="vertical">
+         
+            <span class="text-white d-none d-md-inline ms-4 mt-5 pt-5  mb-2">Navigation</span>
+            <span class="text-white d-md-none ms-3 mt-5 pt-5  mb-2">Nav</span>
+            <a class="nav-link text-start activeBtn ms-md-2 me-2 mb-2" id="IncomeTab" asp-action="Income" asp-controller="InventoryAdmin"  type="button" role="tab" aria-controls="v-pills-home" >
+              <i class="bi bi-person ms-2"></i>   
+              <span class="d-md-inline d-none">Income</span>
+            </a>
+            <a class="nav-link mb-2 text-start  ms-md-2 me-2" id="PayeeTab" asp-action="Payee" asp-controller="InventoryAdmin"  type="button" role="tab" aria-controls="v-pills-profile" >
+              <i class="bi bi-file-earmark-text"></i>   
+              <span class="d-md-inline d-none">Payee</span>
+            </a>
+         @*   <a class="nav-link mb-2 text-start ms-md-2 me-2" id="MissionTab"  type="button" role="tab" aria-controls="v-pills-messages" >
+              <i class="bi bi-bullseye"></i> 
+              <span class="d-md-inline d-none">Mission</span>
+            </a>
+            <a class="nav-link mb-2 text-start ms-md-2 me-2" id="MissionThemeTab"  type="button" role="tab" aria-controls="v-pills-settings" >
+              <i class="bi bi-grid-1x2"></i> 
+              <span class="d-md-inline d-none">Mission Theme</span>
+            </a>
+              
+            <a class="nav-link mb-2 text-start ms-md-2 me-2" id="MissionSkillsTab"   type="button" role="tab" aria-controls="v-pills-settings" >
+                <i class="bi bi-tools"></i> 
+                <span class="d-md-inline d-none">Mission Skills </span>
+            </a>                                                                                                                                                                                                           
+            <a class="nav-link mb-2 text-start ms-md-2 me-2" id="MissionApplicationTab"  type="button" role="tab" aria-controls="v-pills-settings" >
+              <i class="bi bi-folder2"></i>              
+              <span class="d-md-inline d-none">Mission Application</span>
+            </a>
+            <a class="nav-link mb-2 text-start ms-md-2 me-2" id="StoryTab"  type="button" role="tab" aria-controls="v-pills-settings" >
+              <i class="bi bi-journal-medical"></i>              
+              <span class="d-md-inline d-none">Story</span>
+            </a>
+            <a class="nav-link mb-2 text-start ms-md-2 me-2" id="BannerManagementTab"  type="button" role="tab" aria-controls="v-pills-settings" >
+              <i class="bi bi-emoji-wink"></i>              
+              <span class="d-md-inline d-none">Banner Management</span>
+            </a>
+            <a class="nav-link mb-2 text-start ms-md-2 me-2" id="TimesheetTab"  type="button" role="tab" aria-controls="v-pills-settings" >
+              <i class="bi bi-list-task"></i>              
+              <span class="d-md-inline d-none">Timesheets</span>
+            </a>
+            <a class="nav-link mb-2 text-start ms-md-2 me-2" id="CommentsTab"  type="button" role="tab" aria-controls="v-pills-settings" >
+              <i class="bi bi-receipt-cutoff"></i>              
+              <span class="d-md-inline d-none">Comments</span>
+            </a>*@
+          
+        </div>
+
+         <div class="col-10 d-flex flex-column" >
+
+            @*HEADER OF ADMIN PAGE*@
+            <div class="row bg-transperent border mb-4">
+                <div class="col-12 d-flex flex-row align-items-center mb-2 mt-2 justify-content-between">
+
+                  <div>@DateTime.Now.DayOfWeek.ToString(), @CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(@DateTime.Now.Month) @DateTime.Now.Day, @DateTime.Now.Year, @DateTime.Now.Hour:@DateTime.Now.Minute </div>
+                
+                  <div class="dropdown text-end me-sm-5">
+                   @* <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="@Model.LoggedInUser.Avatar" alt="user image" width="40" height="40" class="rounded-circle" data-bs-toggle="modal" data-bs-target="#ImageModal">
+                        <span class="d-none d-sm-inline">@Model.LoggedInUser.FirstName @Model.LoggedInUser.LastName</span>
+                    </a>*@
+                  @*  <ul class="dropdown-menu text-small mt-3" aria-labelledby="dropdownUser1">
+                        <li><a class="dropdown-item" asp-action="LandingPage" asp-controller="Mission">Landing Page</a></li>
+                        <li><a class="dropdown-item" asp-action="StoryListingPage" asp-controller="Story">Story page</a></li>
+                        <li><a class="dropdown-item" asp-controller="VolunteeringTimeSheet" asp-action="VolunteeringTimeSheet">Volunteering Timesheet</a></li>
+                        <li><a class="dropdown-item" asp-controller="Registration" asp-action="UserProfile">Profile</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" asp-controller="Authentication" asp-action="logout">Sign out</a></li>
+                    </ul>*@
+                  </div>
+                  
+                    
+                  
+
+                </div>
+                
+            </div>
+            @RenderBody()
+         </div>
+    </div>
+
+        
+          <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.16/dist/summernote-lite.min.js"></script>
+      
+    @*  <script src="~/DataTable/js/jquery.dataTables.min.js"></script>
+      <script src="~/DataTable/js/dataTables.responsive.min.js"></script>*@
+     
+      
+      @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

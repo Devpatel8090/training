@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "nJUJ2KO9G+LF8t2Bgb57eY+smpwp+h7k0abwc+XMNq8=",
+  "Hash": "gMmh1ft15PgjrTxJUc7CqfWoKVRCHzoGBpeNCvCRKQM=",
   "Source": "RegistrationDemo",
   "BasePath": "_content/RegistrationDemo",
   "Mode": "Default",
@@ -49,6 +49,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\pca39\\Desktop\\RegistrationDemo\\RegistrationDemo\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\RegistrationDemo.bundle.scp.css"
+    },
+    {
+      "Identity": "C:\\Users\\pca39\\Desktop\\RegistrationDemo\\RegistrationDemo\\wwwroot\\css\\InventoryIncome.css",
+      "SourceId": "RegistrationDemo",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\pca39\\Desktop\\RegistrationDemo\\RegistrationDemo\\wwwroot\\",
+      "BasePath": "_content/RegistrationDemo",
+      "RelativePath": "css/InventoryIncome.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\InventoryIncome.css"
     },
     {
       "Identity": "C:\\Users\\pca39\\Desktop\\RegistrationDemo\\RegistrationDemo\\wwwroot\\css\\site.css",
