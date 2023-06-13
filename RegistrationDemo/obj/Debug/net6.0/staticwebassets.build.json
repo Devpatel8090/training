@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "gMmh1ft15PgjrTxJUc7CqfWoKVRCHzoGBpeNCvCRKQM=",
+  "Hash": "Q/cnytMZkQVVQcZUkM8XWuekDZnWzzD0WHYQASU92gE=",
   "Source": "RegistrationDemo",
   "BasePath": "_content/RegistrationDemo",
   "Mode": "Default",
@@ -253,6 +253,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\Images\\top-employer-n-n-no-logo.jpeg"
+    },
+    {
+      "Identity": "C:\\Users\\pca39\\Desktop\\RegistrationDemo\\RegistrationDemo\\wwwroot\\js\\Income.js",
+      "SourceId": "RegistrationDemo",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\pca39\\Desktop\\RegistrationDemo\\RegistrationDemo\\wwwroot\\",
+      "BasePath": "_content/RegistrationDemo",
+      "RelativePath": "js/Income.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\Income.js"
     },
     {
       "Identity": "C:\\Users\\pca39\\Desktop\\RegistrationDemo\\RegistrationDemo\\wwwroot\\js\\registration.js",

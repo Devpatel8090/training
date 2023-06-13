@@ -10,7 +10,9 @@ namespace RegistrationDemo.Repository.Interface
     public interface ICategoryRepository
     {
         public IEnumerable<Category> GetCategories();
-        public int AddCategories(IncomeViewModel model);
+        public int AddOrUpdateCategories(IncomeViewModel model);
+
+        public string EditCategory(long categoryId);
 
 
     }

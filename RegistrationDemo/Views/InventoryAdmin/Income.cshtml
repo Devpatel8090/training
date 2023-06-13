@@ -26,9 +26,8 @@
             </span>
         </div>
         <div class="d-flex flex-column align-items-center justify-content-start">
-            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-tag" viewBox="0 0 16 16">
-                <path d="M6 4.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm-1 0a.5.5 0 1 0-1 0 .5.5 0 0 0 1 0z" />
-                <path d="M2 1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 1 6.586V2a1 1 0 0 1 1-1zm0 5.586 7 7L13.586 9l-7-7H2v4.586z" />
+            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-people-fill" viewBox="0 0 16 16">
+                <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1H7Zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1h4.216ZM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
             </svg>
             <span>
                 Employee
@@ -64,13 +63,13 @@
             </div>
             <div class="modal-body">
                 <div class="d-flex flex-row gap-2 align-items-center">
-                    <div class="" data-bs-target="#CategoryAddModal" data-bs-toggle="modal" data-bs-dismiss="modal">
+                    <div class="" id="addButton" data-bs-target="#CategoryAddModal" data-bs-toggle="modal" data-bs-dismiss="modal">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-patch-plus-fill" viewBox="0 0 16 16">
                             <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01-.622-.636zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0z" />
                         </svg>
                         <span>Add</span>
                     </div>
-                    <div>
+                    <div class="" onclick="EditCategory()">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
                             <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001zm-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708l-1.585-1.585z" />
                         </svg>
@@ -105,11 +104,11 @@
                             </tr>*@
                         @foreach (var item in @Model.Categories)
                         {
-                            <tr>
-                                <td>
+                            <tr value="@item.CategoryId" id="CategoryRow_@item.CategoryId" onclick="selectCategory()">
+                                <td value="@item.CategoryId">
                                     @item.CategoryName
                                 </td>
-                                <td>
+                                <td value="@item.CategoryId">
                                     @item.Description
                                 </td>
 
@@ -120,10 +119,10 @@
                     </tbody>
                 </table>
             </div>
-            <div class="modal-footer">
+            @*<div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-primary">Understood</button>
-            </div>
+                </div>*@
         </div>
     </div>
 </div>
@@ -132,23 +131,23 @@
         <div class="modal-content">
             <form asp-action="AddCategory" asp-controller="InventoryAdmin">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalToggleLabel2">Add Category</h5>
+                    <h5 class="modal-title" id="exampleModalToggleLabel2">Add or Update Category</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-
+                    <input asp-for="@Model.Category.CategoryId" type="text" id="CategoryId" hidden />
                     <div class="form-floating mb-3">
-                        <input asp-for="@Model.Category.CategoryName" type="text" class="form-control" id="floatingInput">
+                        <input asp-for="@Model.Category.CategoryName" type="text" class="form-control" id="CategoryName">
                         <label for="floatingInput">Category</label>
                     </div>
                     <div class="form-floating">
-                        <textarea asp-for="@Model.Category.Description" class="form-control" id="floatingTextarea"></textarea>
+                        <textarea asp-for="@Model.Category.Description" class="form-control" id="CategoryDescription"></textarea>
                         <label for="floatingTextarea">Description</label>
                     </div>
 
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-primary" type="submit">Add</button>
+                    <button class="btn btn-primary" type="submit">Add or Update</button>
                 </div>
             </form>
         </div>
@@ -158,6 +157,8 @@
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/income.js"></script>
+
 <script>
     $(document).ready(function() {
         var activeTabId = $("#AllAdminTabsList").find("a.active").attr('id');

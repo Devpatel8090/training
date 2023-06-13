@@ -8,22 +8,24 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace RegistrationDemo.Repository.Repository
 {
     public class CategoryRepository : ICategoryRepository
     {
 
-        private readonly IConfiguration _configuration;
-        public CategoryRepository(IConfiguration configuration)
+        private readonly string _connectionString;
+
+        public CategoryRepository(string connectionString)
         {
-            _configuration = configuration;
+            _connectionString = connectionString;
         }
 
         public IEnumerable<Category> GetCategories()
         {
-            var connections = _configuration.GetSection("ConnectionStrings").GetSection("DBconnect").Value;
-            using (var connection = new SqlConnection(connections))
+            
+            using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
 
@@ -42,6 +44,7 @@ namespace RegistrationDemo.Repository.Repository
                         category = new Category();
                         category.CategoryName = reader["CategoryName"].ToString();
                         category.Description = reader["Description"].ToString();
+                        category.CategoryId = Convert.ToInt32(reader["CategoryId"]);
                         /*city.CityName = Convert.ToString(reader["CityName"]);*/
                         CategoryList.Add(category);
                     }
@@ -64,29 +67,90 @@ namespace RegistrationDemo.Repository.Repository
             }
         }
 
-        public int AddCategories(IncomeViewModel model)
+        public int AddOrUpdateCategories(IncomeViewModel model)
         {
 
-            var connections = _configuration.GetSection("ConnectionStrings").GetSection("DBconnect").Value;
-            using (var connection = new SqlConnection(connections))
+            
+            using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
                 try
                 {
-                    SqlCommand command = new SqlCommand("[dbo].sp_INVCategory_AddCategories", connection);
-                    command.CommandType = CommandType.StoredProcedure;
+                    if(model.Category.CategoryId == 0)
+                    {
+                        SqlCommand command = new SqlCommand("[dbo].sp_INVCategory_AddCategories", connection);
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("CategoryName", model.Category.CategoryName);
+                        command.Parameters.AddWithValue("Description", model.Category.Description);
+                        var data = command.ExecuteNonQuery();
+                        return data;
 
-                    command.Parameters.AddWithValue("CategoryName", model.Category.CategoryName);
-                    command.Parameters.AddWithValue("Description", model.Category.Description);
+                    }
+                    else
+                    {
+                        SqlCommand command = new SqlCommand("[dbo].sp_INVCategory_UpdateCategory", connection);
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.Parameters.AddWithValue("categoryId", model.Category.CategoryId);
+                        command.Parameters.AddWithValue("categoryName", model.Category.CategoryName);
+                        command.Parameters.AddWithValue("description", model.Category.Description);
+                        var data = command.ExecuteNonQuery();
+                        return data;
+                    }
+
                     
-
-                    var data = command.ExecuteNonQuery();
-                    return data;
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine("Error => ", e.Message);
                     return 0;
+                }
+                finally
+                {
+                    if (connection != null && connection.State == ConnectionState.Open)
+                    {
+                        connection.Close();
+                    }
+
+
+                }
+
+            }
+
+
+        }
+        public string EditCategory(long categoryId)
+        {
+            
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                try
+                {
+                    SqlCommand command = new SqlCommand("[dbo].sp_INVCategory_GetCategoryById", connection);
+                    command.CommandType=CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("categoryId",categoryId);
+
+
+                    SqlDataReader reader = command.ExecuteReader();
+                    Category category = null;
+                    while (reader.Read())
+                    {
+                        category = new Category();
+                        category.CategoryName = reader["CategoryName"].ToString();
+                        category.Description = reader["Description"].ToString();
+                        category.CategoryId = Convert.ToInt32(reader["CategoryId"]);
+                        /*city.CityName = Convert.ToString(reader["CityName"]);*/
+                       
+                    }
+                    
+                    return Newtonsoft.Json.JsonConvert.SerializeObject(category);
+                    /*return new JsonResult()*/
+
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error => ", e.Message);
+                    return null;
                 }
                 finally
                 {

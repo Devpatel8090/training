@@ -13,17 +13,17 @@ namespace RegistrationDemo.Repository.Repository
 {
     public class StudentDetailsRepository : IStudentDetailsRepository
     {
-        private readonly IConfiguration _configuration;
-        public StudentDetailsRepository(IConfiguration configuration)
+        private readonly string _connectionString;
+        public StudentDetailsRepository(string connectionString)
         {
-            _configuration = configuration;
+            _connectionString = connectionString;
         }
 
-        
+
         public int RegisterUser(RegisterViewModel register)
         {
-            var connections = _configuration.GetSection("ConnectionStrings").GetSection("DBconnect").Value;
-            using (var connection = new SqlConnection(connections))
+           
+            using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
                 try

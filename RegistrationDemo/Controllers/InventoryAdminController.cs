@@ -33,10 +33,10 @@ namespace RegistrationDemo.Controllers
         public IActionResult AddCategory(IncomeViewModel model)
         {
            
-                var rowsAffected = _unitOfWork.Category.AddCategories(model);
+                var rowsAffected = _unitOfWork.Category.AddOrUpdateCategories(model);
                 if(rowsAffected != null)
                 {
-                    TempData["success"] = "Category Added Successfully";
+                    TempData["success"] = "Category Added Or Updated Successfully";
                     return RedirectToAction("Income");
                 }
                 else
@@ -49,6 +49,20 @@ namespace RegistrationDemo.Controllers
             
            
 
+        }
+
+        public string EditCategory(long categoryId)
+        {
+            if(categoryId == 0)
+            {
+                TempData["error"] = "sorry!!!";
+                return null;
+            }
+            else
+            {
+                var category = _unitOfWork.Category.EditCategory(categoryId);
+                return category ;
+            }
         }
     }
 }

@@ -13,16 +13,18 @@ namespace RegistrationDemo.Repository.Repository
 {
     public class CityRepository : ICityRepository
     {
-        private readonly IConfiguration _configuration;
-        public CityRepository(IConfiguration configuration)
+       
+        private readonly string _connectionString;
+        
+        public CityRepository(string connectionString)
         {
-            _configuration = configuration;
+             _connectionString = connectionString;
         }
 
         public IEnumerable<City> GetCitiesByState(long stateId)
         {
-            var connections = _configuration.GetSection("ConnectionStrings").GetSection("DBconnect").Value;
-            using (var connection = new SqlConnection(connections))
+           
+            using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
 

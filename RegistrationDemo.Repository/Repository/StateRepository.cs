@@ -13,16 +13,16 @@ namespace RegistrationDemo.Repository.Repository
 {
     public class StateRepository : IStateRepository
     {
-        private readonly IConfiguration _configuration;
-        public StateRepository(IConfiguration configuration)
+        private readonly string _connectionString;
+        public StateRepository(string connectionString)
         {
-            _configuration = configuration;
+            _connectionString = connectionString;
         }
 
         public IEnumerable<State> GetStateByCountry(long countryId)
         {
-            var connections = _configuration.GetSection("ConnectionStrings").GetSection("DBconnect").Value;
-            using (var connection = new SqlConnection(connections))
+           
+            using (var connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
 
